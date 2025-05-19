@@ -1,0 +1,42 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-section__title {
+  font-size: 30px;
+  margin: 80px 0 64px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  text-align: left;
+  padding: 0 104px;
+}
+
+.results-section {
+  background-color: #fff;
+ /* padding: 0 108px 64px; */
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .search-section__title {
+    padding: 0 48px;
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-section__title {
+    padding: 0 24px;
+    font-size: 22px;
+    text-align: center;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .results-section {
+    padding: 40px 16px 48px;
+  }
+}
