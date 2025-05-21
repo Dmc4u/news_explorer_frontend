@@ -21,12 +21,12 @@ function SavedNewsPage({ currentUser, savedArticles, onDelete }) {
   const remainingCount = sortedKeywords.length - topKeywords.length;
 
   return (
-    <section className="saved-news">
+    <section className={`saved-news ${userArticles.length === 0 ? "saved-news--empty" : ""}`}>
       <div className="saved-news__container">
         <p className="saved-news__label">Saved articles</p>
-        <h2 className="saved-news__title">
+        <h1 className="saved-news__title">
           {currentUser.name}, you have {userArticles.length} saved articles
-        </h2>
+        </h1>
         {sortedKeywords.length > 0 && (
           <p className="saved-news__keywords">
             By keywords:{" "}
@@ -35,23 +35,28 @@ function SavedNewsPage({ currentUser, savedArticles, onDelete }) {
               {remainingCount > 0 && (
                 <>
                   {" "}
-                  and <strong>{remainingCount} other{remainingCount > 1 ? "s" : ""}</strong>
+                  and{" "}
+                  <strong>
+                    {remainingCount} other{remainingCount > 1 ? "s" : ""}
+                  </strong>
                 </>
               )}
             </span>
           </p>
         )}
       </div>
-
-      <NewsCardList
-        articles={userArticles}
-        isSavedPage={true}
-        isLoggedIn={true}
-        currentUser={currentUser}
-        savedArticles={savedArticles}
-        onDelete={onDelete}
-      />
-        <Footer />
+       
+       {userArticles.length > 0 && (
+        <NewsCardList
+          articles={userArticles}
+          isSavedPage={true}
+          isLoggedIn={true}
+          currentUser={currentUser}
+          savedArticles={savedArticles}
+          onDelete={onDelete}
+        />
+      )}
+      <Footer />
     </section>
   );
 }

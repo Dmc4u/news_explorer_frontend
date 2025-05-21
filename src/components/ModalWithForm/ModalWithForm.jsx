@@ -16,7 +16,7 @@ function ModalWithForm({
   return (
     <Modal isOpen={isOpen} name={name} onClose={onClose}>
       <button className="modal__close" onClick={onClose} />
-      <h2 className="modal__title">{title}</h2>
+      <h1 className="modal__title">{title}</h1>
       <form onSubmit={onSubmit} className="modal__form">
         {children}
         <button type="submit" className="modal__submit" disabled={isDisabled}>

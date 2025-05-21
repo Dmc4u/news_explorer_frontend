@@ -191,10 +191,10 @@ function App() {
                     onClose={handleClose}
                   />
                   <section className="search">
-                    <h2 className="search__title">
+                    <h1 className="search__title">
                       What's going on in{" "}
                       <span className="search__title-break">the world?</span>
-                    </h2>
+                    </h1>
                     <p className="search__subtitle">
                       Find the latest news on any topic and save them in your
                       personal account.

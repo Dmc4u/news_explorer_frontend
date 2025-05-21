@@ -64,6 +64,9 @@ function Navigation({
               &times;
             </button>
 
+            {/* Top divider below logo */}
+            <div className="navigation__divider" />
+
             <Link to="/" className="navigation__link" onClick={onClose}>
               Home
             </Link>
@@ -95,15 +98,20 @@ function Navigation({
                 </button>
               </>
             ) : (
-              <button
-                className="navigation__button"
-                onClick={() => {
-                  onLogin();
-                  onClose();
-                }}
-              >
-                Sign in
-              </button>
+              <>
+                <button
+                  className="navigation__button"
+                  onClick={() => {
+                    onLogin();
+                    onClose();
+                  }}
+                >
+                  Sign in
+                </button>
+
+                {/* Bottom divider under Sign in */}
+                <div className="navigation__divider" />
+              </>
             )}
           </div>
         </div>

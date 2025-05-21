@@ -18,13 +18,20 @@ function NewsCardList({
   const isArticleSaved = (article) =>
     savedArticles.some((a) => a.title === article.title);
 
+  // Create a unique key function
+  const createUniqueKey = (article, index) => {
+    return `${article.title}-${article.url}-${index}-${
+      isSavedPage ? "saved" : "search"
+    }`;
+  };
+
   return (
     <>
       <section className="news-card-list">
         <ul className="news-card-list__grid">
-          {articles.map((article) => (
+          {articles.map((article, index) => (
             <NewsCard
-              key={article.title}
+              key={createUniqueKey(article, index)}
               article={article}
               isSavedPage={isSavedPage}
               isLoggedIn={isLoggedIn}

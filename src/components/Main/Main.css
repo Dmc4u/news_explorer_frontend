@@ -1,21 +1,21 @@
 .main {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: auto;
 }
 
 .search-section__title {
-  font-size: 30px;
-  margin: 80px 0 64px;
+  margin: 0 0 40px;
   font-family: "Roboto Slab", serif;
   font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
   text-align: left;
-  padding: 0 104px;
+  padding: 80px 104px 0; /* Top padding instead of margin-top */
 }
 
 .results-section {
   background-color: #fff;
- /* padding: 0 108px 64px; */
   width: 100%;
 }
 
@@ -27,16 +27,14 @@
 }
 
 @media (max-width: 768px) {
-  .search-section__title {
-    padding: 0 24px;
-    font-size: 22px;
-    text-align: center;
-  }
-}
-
-
-@media (max-width: 768px) {
   .results-section {
     padding: 40px 16px 48px;
   }
+
+  .search-section__title {
+    padding: 0 24px;
+    font-size: 22px;
+  }
 }
+
+

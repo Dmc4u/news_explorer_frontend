@@ -15,16 +15,30 @@ const Footer = () => {
           </Link>
           <p className="footer__about">TripleTen</p>
           <div className="footer__socials">
-            <img
-              src={GithubLogo}
-              alt="GitHub"
-              className="footer__social-logo"
-            />
-            <img
-              src={FacebookLogo}
-              alt="Facebook"
-              className="footer__social-logo"
-            />
+            <a
+              href="https://github.com/Dmc4u"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer__social-link"
+            >
+              <img
+                src={GithubLogo}
+                alt="GitHub"
+                className="footer__social-logo"
+              />
+            </a>
+            <a
+              href="https://www.facebook.com/dmc4uonlinestore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer__social-link"
+            >
+              <img
+                src={FacebookLogo}
+                alt="Facebook"
+                className="footer__social-logo"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -36,16 +50,30 @@ const Footer = () => {
             <p className="footer__home">Home</p>
           </Link>
           <div className="footer__socials">
-            <img
-              src={GithubLogo}
-              alt="GitHub"
-              className="footer__social-logo"
-            />
-            <img
-              src={FacebookLogo}
-              alt="Facebook"
-              className="footer__social-logo"
-            />
+            <a
+              href="https://github.com/Dmc4u"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer__social-link"
+            >
+              <img
+                src={GithubLogo}
+                alt="GitHub"
+                className="footer__social-logo"
+              />
+            </a>
+            <a
+              href="https://www.facebook.com/dmc4uonlinestore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer__social-link"
+            >
+              <img
+                src={FacebookLogo}
+                alt="Facebook"
+                className="footer__social-logo"
+              />
+            </a>
           </div>
         </div>
         <p className="footer__about">TripleTen</p>

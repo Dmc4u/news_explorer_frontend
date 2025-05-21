@@ -1,5 +1,5 @@
 import "./About.css";
-import authorImage from "../../assets/author.jpg"; 
+import authorImage from "../../assets/images/author-image.jpg"; 
 
 const About = () => {
   return (
@@ -10,7 +10,7 @@ const About = () => {
         className="about__image"
       />
       <div className="about__content">
-        <h2 className="about__title">About the author</h2>
+        <h1 className="about__title">About the author</h1>
         <p className="about__description">
           Moses Ademola Aina is a full-stack software developer specializing in
           the MERN stack. This project is the final submission for the TripleTen

@@ -27,7 +27,6 @@ function NewsCard({
 
   const handleClick = () => {
     if (isDisabled) return;
-
     if (isSavedPage && isOwner) {
       onDelete(article);
     } else if (!isSavedPage && isLoggedIn) {
@@ -68,15 +67,17 @@ function NewsCard({
       </div>
 
       <div className="news-card__content">
-        <p className="news-card__date">
-          {new Date(article.publishedAt).toLocaleDateString(undefined, {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
-        <h3 className="news-card__title">{article.title}</h3>
-        <p className="news-card__description">{article.description}</p>
+        <div className="news-card__body">
+          <p className="news-card__date">
+            {new Date(article.publishedAt).toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+          <h3 className="news-card__title">{article.title}</h3>
+          <p className="news-card__description">{article.description}</p>
+        </div>
         <span className="news-card__source">{article.source.name}</span>
       </div>
     </li>

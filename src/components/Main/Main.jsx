@@ -2,6 +2,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import Preloader from "../Preloader/Preloader";
+import NoResults from "../NoResults/NoResults";
 import "./Main.css";
 
 function Main({
@@ -24,17 +25,25 @@ function Main({
   const showSavedAsDefault = isLoggedIn && articles.length === 0;
   const showResults =
     isLoading ||
-    errorMessage ||
+    errorMessage === "Nothing Found" ||
     articles.length > 0 ||
+    (isLoggedIn && articles.length > 0) ||
     (showSavedAsDefault && userSavedArticles.length > 0);
 
   return (
     <main className="main">
-      {showResults && <h2 className="search-section__title">Search results</h2>}
-
       <section className="results-section">
+        {/* ✅ Only show the title when there are articles */}
+        {showResults &&
+          errorMessage !== "Nothing Found" &&
+          articles.length > 0 && (
+            <h2 className="search-section__title">Search results</h2>
+          )}
+
         {isLoading ? (
           <Preloader />
+        ) : errorMessage === "Nothing Found" ? (
+          <NoResults />
         ) : errorMessage ? (
           <p className="results-section__message">{errorMessage}</p>
         ) : articles.length > 0 ? (

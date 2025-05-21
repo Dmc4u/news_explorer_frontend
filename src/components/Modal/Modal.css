@@ -94,33 +94,35 @@
 
 .modal__submit {
   width: 100%;
-  height: 40px; /* Match Figma height */
-  background: rgba(0, 0, 0, 0.6);
+  height: 40px;
   text-align: center;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: white;
+  font-size: 18px;
+  line-height: 24px;
+  background: rgba(230, 232, 235, 1);
+  color: rgba(182, 188, 191, 1);
   border: none;
   border-radius: 50px; /* Rounded corners */
   margin-top: 24px;
   cursor: pointer;
-  opacity: 1;
 }
 
 .modal__submit:hover {
   background: #1e5aba;
+  color: #fff;
 }
 
 .modal__alt-button {
   font-family: "Inter", sans-serif;
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
   margin: 12px auto 0;
   background: transparent;
   border: none;
   color: #2f71e5;
-  font-size: 14px;
+
   cursor: pointer;
   text-align: center;
   display: block;
@@ -140,6 +142,65 @@
   display: block;
 }
 
+/* ========== SignupSuccessModal ========== */
+.modal__content-success {
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-sizing: border-box;
+  transform: scale(0.9);
+  transition: transform 0.3s linear;
+  padding: 32px 24px;
+}
+
+.modal_opened .modal__content-success {
+  transform: scale(1);
+}
+
+.modal__success-message {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  color: rgba(0, 0, 0, 1);
+  margin: 0;
+}
+
+.modal__switch-button {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  margin-top: 16px;
+  background: transparent;
+  border: none;
+  color: #2f71e5;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.modal__switch-button:hover {
+  text-decoration: underline;
+}
+
+.success__close {
+  position: absolute;
+  top: -66px;
+  right: -66px;
+  width: 22px;
+  height: 22px;
+  background: url(../../assets/icons/Close-Icon-white.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
 .modal__keyboard-img {
   display: none;
   margin-top: 24px;
@@ -148,29 +209,29 @@
 }
 
 /* Mobile-specific adjustments */
-@media screen and (max-width: 768px)  {
+@media screen and (max-width: 768px) {
   .modal {
-    position: absolute;
-    top: 56px; 
+    position: fixed;
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
-    height: calc(100% - 56px); 
+    height: 100vh; 
+    display: flex;
+    align-items: flex-end; 
     z-index: 999;
   }
 
- .modal__content {
+  .modal__content {
     max-width: 100%;
-    height: 100%;
+    width: 100%;
+    min-height: auto; 
+    max-height: calc(100vh - 56px); 
     border-radius: 20px 20px 0 0;
     padding: 24px 16px;
-    overflow-y: auto;
+    margin-bottom: 0;
     box-sizing: border-box;
-  }
-
-  .modal__close {
-    width: 24px;
-    height: 24px;
-    top: -36px;
-    right: 16px;
   }
 
   .modal__input {
@@ -189,7 +250,7 @@
     display: block;
     margin-top: 24px;
     width: 100%;
-    height: auto; 
+    height: auto;
     object-fit: contain;
   }
 }

@@ -1,3 +1,15 @@
+.saved-news {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.saved-news--empty .news-card-list {
+  background-color: transparent;
+  padding: 0;
+}
+
 .saved-news__container {
   padding: 30px 108px 0;
   background-color: white;
@@ -30,6 +42,8 @@
   font-weight: 700;
   color: #1a1b22;
 }
+
+
 
 /* ✅ Responsive layout */
 @media (max-width: 768px) {

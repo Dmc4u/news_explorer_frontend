@@ -9,6 +9,11 @@ function SearchForm({ onSearch }) {
     onSearch(searchTerm);
   };
 
+  // Create a dynamic className for the button
+  const buttonClassName = `search-form__button ${
+    searchTerm.trim() ? 'search-form__button--active' : ''
+  }`;
+
   return (
     <form className="search-form" onSubmit={handleSubmit}>
       <input
@@ -19,7 +24,7 @@ function SearchForm({ onSearch }) {
         onChange={(e) => setSearchTerm(e.target.value)}
         required
       />
-      <button className="search-form__button" type="submit">
+      <button className={buttonClassName} type="submit">
         Search
       </button>
     </form>
