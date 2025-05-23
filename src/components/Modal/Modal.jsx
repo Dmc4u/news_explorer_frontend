@@ -25,10 +25,17 @@ function Modal({ isOpen, onClose, name, children }) {
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_opened" : ""}`}
       onClick={handleOverlayClick}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={`modal-${name}-title`}
+      aria-hidden={!isOpen}
     >
-      <div className="modal__content">
+      <article 
+        className="modal__content"
+        role="document"
+      >
         {children}
-      </div>
+      </article>
     </div>
   );
 }

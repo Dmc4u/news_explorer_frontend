@@ -33,13 +33,6 @@ function Main({
   return (
     <main className="main">
       <section className="results-section">
-        {/* ✅ Only show the title when there are articles */}
-        {showResults &&
-          errorMessage !== "Nothing Found" &&
-          articles.length > 0 && (
-            <h2 className="search-section__title">Search results</h2>
-          )}
-
         {isLoading ? (
           <Preloader />
         ) : errorMessage === "Nothing Found" ? (
@@ -55,6 +48,7 @@ function Main({
             savedArticles={savedArticles}
             onSave={onSave}
             onDelete={onDelete}
+            showTitle={showResults && errorMessage !== "Nothing Found" && articles.length > 0}
           />
         ) : showSavedAsDefault && userSavedArticles.length > 0 ? (
           <NewsCardList

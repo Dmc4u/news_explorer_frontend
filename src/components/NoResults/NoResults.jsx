@@ -1,5 +1,5 @@
 import "./NoResults.css";
-import sadIcon from "../../assets/icons/sad-face-icon.svg";
+import sadIcon from "../../assets/icons/not-found.svg";
 
 function NoResults() {
   return (

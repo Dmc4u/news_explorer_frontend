@@ -13,7 +13,14 @@ const Footer = () => {
           <Link to="/" className="footer__link">
             <p className="footer__home">Home</p>
           </Link>
-          <p className="footer__about">TripleTen</p>
+          <a
+            href="https://tripleten.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__about footer__link"
+          >
+            TripleTen
+          </a>
           <div className="footer__socials">
             <a
               href="https://github.com/Dmc4u"
@@ -76,7 +83,14 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <p className="footer__about">TripleTen</p>
+        <a
+          href="https://tripleten.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer__about footer__link"
+        >
+          TripleTen
+        </a>
         <p className="footer__text">© 2024 Supersite, Powered by News API</p>
       </div>
     </footer>

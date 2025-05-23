@@ -15,13 +15,21 @@ function ModalWithForm({
 }) {
   return (
     <Modal isOpen={isOpen} name={name} onClose={onClose}>
-      <button className="modal__close" onClick={onClose} />
-      <h1 className="modal__title">{title}</h1>
+      <header className="modal__header">
+        <button
+          className="modal__close"
+          onClick={onClose}
+          aria-label="Close modal"
+        />
+        <h2 className="modal__title">{title}</h2>
+      </header>
       <form onSubmit={onSubmit} className="modal__form">
         {children}
-        <button type="submit" className="modal__submit" disabled={isDisabled}>
-          {buttonText}
-        </button>
+        <footer className="modal__submit-wrapper">
+          <button type="submit" className="modal__submit" disabled={isDisabled}>
+            {buttonText}
+          </button>
+        </footer>
       </form>
 
       {keyboardImgSrc && (
@@ -32,11 +40,13 @@ function ModalWithForm({
         />
       )}
 
-      {altText && (
-        <button className="modal__alt-button" onClick={onAltClick}>
-          {altText}
-        </button>
-      )}
+      <footer className="modal__footer">
+        {altText && (
+          <button className="modal__alt-button" onClick={onAltClick}>
+            {altText}
+          </button>
+        )}
+      </footer>
     </Modal>
   );
 }

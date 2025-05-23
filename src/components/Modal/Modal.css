@@ -77,7 +77,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  margin-bottom: 24px; /* Reduced space for compact layout */
+  margin-bottom: 24px;
 }
 
 .modal__input {
@@ -92,6 +92,17 @@
   font-family: "Roboto", sans-serif;
 }
 
+.modal__submit-wrapper {
+  width: 100%;
+  margin-top: 24px;
+  border: 1px solid transparent; 
+}
+
+.modal__submit-wrapper:hover {
+  border: 1px solid rgba(47, 113, 229, 1);
+  box-shadow: 0px 5px 15px 0px rgba(14, 26, 57, 0.2);
+}
+
 .modal__submit {
   width: 100%;
   height: 40px;
@@ -100,17 +111,17 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  background: rgba(230, 232, 235, 1);
-  color: rgba(182, 188, 191, 1);
+  background: rgba(47, 113, 229, 1);
+  color: #fff;
   border: none;
-  border-radius: 50px; /* Rounded corners */
-  margin-top: 24px;
+  border-radius: 50px;
   cursor: pointer;
 }
 
-.modal__submit:hover {
-  background: #1e5aba;
-  color: #fff;
+.modal__submit:disabled {
+  background: rgba(230, 232, 235, 1);
+  color: rgba(182, 188, 191, 1); 
+  cursor: not-allowed;
 }
 
 .modal__alt-button {
@@ -122,7 +133,6 @@
   background: transparent;
   border: none;
   color: #2f71e5;
-
   cursor: pointer;
   text-align: center;
   display: block;
@@ -152,7 +162,7 @@
   box-sizing: border-box;
   transform: scale(0.9);
   transition: transform 0.3s linear;
-  padding: 32px 24px;
+  padding: 43px 36px 51px;
 }
 
 .modal_opened .modal__content-success {
@@ -160,6 +170,7 @@
 }
 
 .modal__success-message {
+  max-width: 315px;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 24px;
@@ -188,9 +199,9 @@
 
 .success__close {
   position: absolute;
-  top: -66px;
-  right: -66px;
-  width: 22px;
+  top: -22px;
+  right: -22px;
+  width: 14px;
   height: 22px;
   background: url(../../assets/icons/Close-Icon-white.svg);
   background-repeat: no-repeat;
@@ -212,22 +223,22 @@
 @media screen and (max-width: 768px) {
   .modal {
     position: fixed;
-    top: 0; 
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
-    align-items: flex-end; 
+    align-items: flex-end;
     z-index: 999;
   }
 
   .modal__content {
     max-width: 100%;
     width: 100%;
-    min-height: auto; 
-    max-height: calc(100vh - 56px); 
+    min-height: auto;
+    max-height: calc(100vh - 56px);
     border-radius: 20px 20px 0 0;
     padding: 24px 16px;
     margin-bottom: 0;

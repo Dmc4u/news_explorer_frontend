@@ -66,7 +66,7 @@ function Navigation({
 
             {/* Top divider below logo */}
             <div className="navigation__divider" />
-
+            
             <Link to="/" className="navigation__link" onClick={onClose}>
               Home
             </Link>

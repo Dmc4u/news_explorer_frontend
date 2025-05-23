@@ -4,16 +4,6 @@
   min-height: auto;
 }
 
-.search-section__title {
-  margin: 0 0 40px;
-  font-family: "Roboto Slab", serif;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 46px;
-  text-align: left;
-  padding: 80px 104px 0; /* Top padding instead of margin-top */
-}
-
 .results-section {
   background-color: #fff;
   width: 100%;

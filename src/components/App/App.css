@@ -40,7 +40,7 @@
 }
 
 .search__title-break {
-  display: block;
+  display: inline;
 }
 
 .search__subtitle {

@@ -2,6 +2,7 @@
 
 This is the frontend application for **NewsExplorer**, a responsive React web app that allows users to search for and save news articles using the News API.
 
+🔗 [NewsExplorer](https://dmc4u.github.io/news_explorer_frontend/) 
 🔗 [View the repository](https://github.com/Dmc4u/news_explorer_frontend)
 
 ## 📦 Tech Stack

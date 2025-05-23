@@ -12,6 +12,7 @@ function NewsCardList({
   savedArticles = [],
   onSave,
   onDelete,
+  showTitle = false,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -28,6 +29,7 @@ function NewsCardList({
   return (
     <>
       <section className="news-card-list">
+         {showTitle && <h2 className="news-card-list__title">Search results</h2>}
         <ul className="news-card-list__grid">
           {articles.map((article, index) => (
             <NewsCard
