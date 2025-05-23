@@ -59,3 +59,81 @@ npm install react-router-dom
 This project is licensed under the MIT License – see the LICENSE file for details.
 
 
+🚀 Deploying a Vite App to GitHub Pages
+Follow these exact steps in your terminal and project files:
+
+1️⃣ Install gh-pages
+
+npm install gh-pages --save-dev
+
+2️⃣ Update vite.config.js
+Add the base field with your repository name:
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  base: '/news_explorer_frontend/',
+  plugins: [react()],
+});
+
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./components/App/App";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter basename="/news_explorer_frontend/">
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+
+3️⃣ Add homepage to package.json
+
+"homepage": "https://dmc4u.github.io/news_explorer_frontend/"
+
+4️⃣ Add deploy scripts to package.json
+Inside your "scripts" section:
+
+"predeploy": "npm run build",
+"deploy": "gh-pages -d dist"
+
+Example full "scripts":
+"scripts": {
+  "dev": "vite --open",
+  "build": "vite build",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+
+5️⃣ Deploy the App
+Run the commands below in your terminal:
+
+npm run predeploy
+npm run deploy
+
+6️⃣ Enable GitHub Pages
+1. Go to your repo:
+https://github.com/Dmc4u/news_explorer_frontend
+
+2. Click Settings > Pages
+
+3. Under "Source", select:
+  - Branch: gh-pages
+  - Folder: / (root)
+
+4. Click Save
+
+✅ Your app will be live shortly at:
+👉 https://dmc4u.github.io/news_explorer_frontend/
+
+
+
+
+
+
