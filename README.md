@@ -1,12 +1,61 @@
-# React + Vite
+# 📰 NewsExplorer – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for **NewsExplorer**, a responsive React web app that allows users to search for and save news articles using the News API.
 
-Currently, two official plugins are available:
+🔗 [NewsExplorer](https://dmc4u.github.io/news_explorer_frontend/) 
+🔗 [View the repository](https://github.com/Dmc4u/news_explorer_frontend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Tech Stack
 
-## Expanding the ESLint configuration
+- ⚛️ React (with Vite)
+- 🎨 CSS using BEM methodology
+- 🌐 React Router DOM
+- 📰 News API (for fetching articles)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📋 Features
+
+- 🔍 Keyword-based search with real-time news fetching
+- 📱 Fully responsive layout (mobile, tablet, desktop)
+- 🔒 Protected route for saved articles (visible after login)
+- 🧩 Modular & reusable components (cards, buttons, modals, loaders)
+- 💾 LocalStorage caching for saved articles and search results
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone git@github.com:Dmc4u/news_explorer_frontend.git
+cd news_explorer_frontend
+
+### 2️⃣ Create Project with Vite
+npm create vite@latest . --template react Or npm create vite@latest .
+
+###  3️⃣ Install Dependencies
+npm install
+
+### 4️⃣ Run the Development Server
+npm run dev
+
+
+git init
+git add .
+git commit -m "Initial commit: set up Vite + React project"
+
+🌿 5. Create and Switch to Stage Branches
+git checkout -b stage-1-frontend-and-api
+
+📤 6. Push to GitHub
+
+git push -u origin stage-1-frontend-and-api
+
+📦 Additional Dependencies
+Install React Router DOM:
+npm install react-router-dom
+
+📄 License
+This project is licensed under the MIT License – see the LICENSE file for details.
+
+
