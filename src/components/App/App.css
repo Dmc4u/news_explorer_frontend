@@ -22,55 +22,12 @@
   flex-direction: column;
 }
 
-.search {
-  max-width: 608px;
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 160px;
-  padding-bottom: 60px;
-}
-
-.search__title {
-  font-family: "Roboto Slab", serif;
-  font-weight: 400;
-  font-size: 60px;
-  line-height: 64px;
-  margin: 0 0 16px;
-  color: #ffffff;
-}
-
-.search__title-break {
-  display: inline;
-}
-
-.search__subtitle {
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  line-height: 24px;
-  margin-bottom: 32px;
-  color: #ffffff;
-}
-
 .app__keyboard-img {
   display: block;
   width: 100%;
   margin: 24px auto;
   height: auto;
   object-fit: contain;
-}
-
-
-@media (max-width: 768px) {
-  .search {
-    padding-top: 86px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .search__title {
-    font-size: 36px;
-    line-height: 40px;
-  }
 }
 
 

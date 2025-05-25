@@ -100,7 +100,7 @@
 /* Mobile */
 @media (max-width: 767px) {
   .news-card-list {
-    padding: 40px 16px 0;
+    padding: 40px 0 0;
   }
 
   .news-card-list__grid {
@@ -123,7 +123,7 @@
 /* Extra small devices */
 @media (max-width: 480px) {
  .news-card-list {
-    padding: 40px 8px 0;
+    padding: 40px 0 0;
   }
 
   .news-card-list__grid {
