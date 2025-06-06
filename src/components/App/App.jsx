@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -10,7 +11,17 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import SignupSuccessModal from "../SignupSuccessModal/SignupSuccessModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 import { fetchNewsArticles } from "../../utils/newsApi";
+import {
+  signup,
+  signin,
+  getUserInfo,
+  getSavedArticles,
+  saveArticle,
+  deleteArticle,
+} from "../../utils/MainApi";
+
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import keyboardImg from "../../assets/images/keyboard-img.png";
 
@@ -22,44 +33,46 @@ function App() {
   const isSavedNews = location.pathname === "/saved-news";
 
   const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [savedArticles, setSavedArticles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCards, setVisibleCards] = useState(3);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "" });
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAppReady, setAppReady] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  const [savedArticles, setSavedArticles] = useState(() => {
-    const stored = localStorage.getItem("savedArticles");
-    return stored ? JSON.parse(stored) : [];
-  });
-
   const [activeModal, setActiveModal] = useState(null);
-  const handleClose = () => setActiveModal(null);
+  const handleModalClose = () => setActiveModal(null);
 
+  // --- Move handleLogout BEFORE useEffect! ---
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setCurrentUser({ name: "" });
+    setSavedArticles([]);
+    localStorage.removeItem("jwt");
+    navigate("/");
+  };
+
+  // Auth check
   useEffect(() => {
-    const storedLogin = localStorage.getItem("isLoggedIn");
-    const storedUser = localStorage.getItem("currentUser");
-    const lastSearch = localStorage.getItem("lastSearchQuery");
+    const token = localStorage.getItem("jwt");
+    if (!token) return setAppReady(true);
 
-    if (storedLogin === "true" && storedUser) {
-      setLoggedIn(true);
-      setCurrentUser(JSON.parse(storedUser));
-    }
-
-    if (lastSearch) {
-      const cached = localStorage.getItem(`newsCache-${lastSearch}`);
-      if (cached) {
-        setArticles(JSON.parse(cached));
-        setSearchQuery(lastSearch);
-        setVisibleCards(3);
-      }
-    }
-
-    setAppReady(true);
+    getUserInfo(token)
+      .then((user) => {
+        setCurrentUser(user);
+        setLoggedIn(true);
+        return getSavedArticles(token);
+      })
+      .then(setSavedArticles)
+      .catch((err) => {
+        console.error("Token validation failed:", err);
+        handleLogout();
+      })
+      .finally(() => setAppReady(true));
   }, []);
 
   useEffect(() => {
@@ -78,19 +91,17 @@ function App() {
 
     localStorage.setItem("lastSearchQuery", query);
     const cached = localStorage.getItem(`newsCache-${query}`);
+    setSearchQuery(query);
+    setVisibleCards(3);
+    setErrorMessage("");
+    setArticles([]);
 
     if (cached) {
       setArticles(JSON.parse(cached));
-      setVisibleCards(3);
-      setSearchQuery(query);
       return;
     }
 
     setIsLoading(true);
-    setErrorMessage("");
-    setArticles([]);
-    setSearchQuery(query);
-
     fetchNewsArticles(query)
       .then((articles) => {
         if (articles.length === 0) {
@@ -98,78 +109,80 @@ function App() {
         } else {
           setArticles(articles);
           localStorage.setItem(`newsCache-${query}`, JSON.stringify(articles));
-          setVisibleCards(3);
         }
       })
-      .catch(() => {
+      .catch(() =>
         setErrorMessage(
           "Sorry, something went wrong during the request. Please try again later."
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+        )
+      )
+      .finally(() => setIsLoading(false));
   };
 
   const handleRegister = ({ name, email, password }) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newUser = { name, email, password, _id: "user" + Date.now() };
-        localStorage.setItem("registeredUser", JSON.stringify(newUser));
+    return signup({ name, email, password })
+      .then(() => {
         setActiveModal("success");
-        resolve();
-      }, 1000);
-    });
+      })
+      .catch((err) => {
+        console.error("Registration failed:", err);
+        if (err.includes("409")) {
+          setErrorMessage("User with this email already exists.");
+        } else {
+          setErrorMessage("Registration failed. Please try again.");
+        }
+      });
   };
 
-  const handleLogin = ({ email, password }) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const storedUser = localStorage.getItem("registeredUser");
-        if (!storedUser) return reject("No registered user found");
-
-        const user = JSON.parse(storedUser);
-        if (user.email !== email || user.password !== password) {
-          return reject("Invalid credentials");
-        }
-
-        setLoggedIn(true);
+  const handleLogin = ({ email, password }) =>
+    signin({ email, password })
+      .then(({ token }) => {
+        localStorage.setItem("jwt", token);
+        return Promise.all([getUserInfo(token), getSavedArticles(token)]);
+      })
+      .then(([user, articles]) => {
         setCurrentUser(user);
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("currentUser", JSON.stringify(user));
-
+        setSavedArticles(articles);
+        setLoggedIn(true);
         setActiveModal(null);
         navigate("/saved-news");
-        resolve();
-      }, 1000);
-    }).catch((err) => {
-      console.error("Login failed:", err);
-      alert(err);
-    });
-  };
-
-  const handleLogout = () => {
-    setLoggedIn(false);
-    setCurrentUser({ name: "" });
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("currentUser");
-    navigate("/");
-  };
+      });
 
   const handleSaveArticle = (article) => {
+    const token = localStorage.getItem("jwt");
     const keyword = searchQuery.trim();
-    const updated = [
-      ...savedArticles,
-      { ...article, keyword, owner: currentUser._id },
-    ];
-    setSavedArticles(updated);
-    localStorage.setItem("savedArticles", JSON.stringify(updated));
+
+    const {
+      url,
+      content,
+      author,
+      source,
+      ...rest
+    } = article;
+
+    const cleanedArticle = {
+      ...rest,
+      source: { name: source.name },
+      keyword,
+    };
+
+    saveArticle(token, cleanedArticle)
+      .then((saved) => setSavedArticles((prev) => [...prev, saved]))
+      .catch((err) => console.error("Failed to save article:", err));
   };
 
   const handleDeleteArticle = (article) => {
-    const updated = savedArticles.filter((a) => a.title !== article.title);
-    setSavedArticles(updated);
-    localStorage.setItem("savedArticles", JSON.stringify(updated));
+    const token = localStorage.getItem("jwt");
+    const target = savedArticles.find(
+      (a) => a._id === article._id || a.link === article.link
+    );
+    if (!target) return;
+
+    deleteArticle(token, target._id)
+      .then(() =>
+        setSavedArticles((prev) => prev.filter((a) => a._id !== target._id))
+      )
+      .catch((err) => console.error("Failed to delete article:", err));
   };
 
   return (
@@ -182,15 +195,15 @@ function App() {
               <>
                 <div className="intro-background">
                   <Header
-                    isSavedNews={isSavedNews}
+                    isSavedNews={false}
                     isLoggedIn={isLoggedIn}
                     currentUser={currentUser}
                     onLogin={() => setActiveModal("login")}
                     onLogout={handleLogout}
                     activeModal={activeModal}
-                    onClose={handleClose}
+                    onClose={handleModalClose}
                   />
-                    <SearchForm onSearch={handleSearch} />
+                  <SearchForm onSearch={handleSearch} />
                 </div>
 
                 <Main
@@ -207,7 +220,6 @@ function App() {
 
                 <About />
 
-                {/* ✅ Keyboard image for exactly 768px when login modal is open and user not logged in */}
                 {!isLoggedIn &&
                   activeModal === "login" &&
                   screenWidth === 768 && (
@@ -229,13 +241,13 @@ function App() {
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <div className="saved-background">
                   <Header
-                    isSavedNews={isSavedNews}
+                    isSavedNews
                     isLoggedIn={isLoggedIn}
                     currentUser={currentUser}
                     onLogin={() => setActiveModal("login")}
                     onLogout={handleLogout}
                     activeModal={activeModal}
-                    onClose={handleClose}
+                    onClose={handleModalClose}
                   />
                   <SavedNewsPage
                     currentUser={currentUser}
@@ -248,22 +260,21 @@ function App() {
           />
         </Routes>
 
-        {/* Modals */}
         <RegisterModal
           isOpen={activeModal === "register"}
           onRegister={handleRegister}
-          onClose={handleClose}
+          onClose={handleModalClose}
           onSwitchToLogin={() => setActiveModal("login")}
         />
         <LoginModal
           isOpen={activeModal === "login"}
           onLogin={handleLogin}
-          onClose={handleClose}
+          onClose={handleModalClose}
           onSwitchToRegister={() => setActiveModal("register")}
         />
         <SignupSuccessModal
           isOpen={activeModal === "success"}
-          onClose={handleClose}
+          onClose={handleModalClose}
           onSignInClick={() => setActiveModal("login")}
         />
       </div>
