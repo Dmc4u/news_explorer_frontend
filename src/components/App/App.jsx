@@ -47,7 +47,6 @@ function App() {
   const [activeModal, setActiveModal] = useState(null);
   const handleModalClose = () => setActiveModal(null);
 
-  // --- Move handleLogout BEFORE useEffect! ---
   const handleLogout = () => {
     setLoggedIn(false);
     setCurrentUser({ name: "" });
@@ -148,9 +147,23 @@ function App() {
         navigate("/saved-news");
       });
 
+  /**
+   * Save an article if not already saved (by url).
+   * If already saved, triggers delete instead (toggle).
+   */
   const handleSaveArticle = (article) => {
     const token = localStorage.getItem("jwt");
     const keyword = searchQuery.trim();
+
+    // Deduplication: Find if article is already saved (by url)
+    const existing = savedArticles.find(
+      (a) => a.url === article.url || a.link === article.url
+    );
+    if (existing) {
+      // If already saved, delete it (toggle)
+      handleDeleteArticle(existing);
+      return;
+    }
 
     const {
       url,
@@ -162,7 +175,8 @@ function App() {
 
     const cleanedArticle = {
       ...rest,
-      source: { name: source.name },
+      url,
+      source: { name: source?.name || article.source },
       keyword,
     };
 
@@ -171,18 +185,28 @@ function App() {
       .catch((err) => console.error("Failed to save article:", err));
   };
 
+  /**
+   * Deletes a saved article by its unique ID.
+   */
   const handleDeleteArticle = (article) => {
     const token = localStorage.getItem("jwt");
-    const target = savedArticles.find(
-      (a) => a._id === article._id || a.link === article.link
-    );
-    if (!target) return;
+    // Accept either the full saved object or an article from search
+    const target =
+      savedArticles.find(
+        (a) => a._id === article._id || a.url === article.url || a.link === article.url
+      ) || article;
+    if (!target?._id) return;
 
     deleteArticle(token, target._id)
       .then(() =>
         setSavedArticles((prev) => prev.filter((a) => a._id !== target._id))
       )
       .catch((err) => console.error("Failed to delete article:", err));
+  };
+
+  // Handler for unauthorized save icon click
+  const handleUnauthSaveClick = () => {
+    setActiveModal("register"); // Open registration modal
   };
 
   return (
@@ -216,6 +240,7 @@ function App() {
                   savedArticles={savedArticles}
                   onSave={handleSaveArticle}
                   onDelete={handleDeleteArticle}
+                  onUnauthClick={handleUnauthSaveClick}
                 />
 
                 <About />

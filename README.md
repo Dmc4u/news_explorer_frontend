@@ -171,3 +171,10 @@ Run: npm run deploy on the LM
 
 ## Fix the permission for the user to be able to read the files in the assets directory?
 run on VM: chmod 755 /home/dmsesbiz2005/news_explorer_frontend/assets
+
+# 🧠 Optional: Automate This in npm run deploy
+If you want to avoid manual chown/chmod in the future, you can modify your deploy script in package.json like this:
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "npm run build && scp -r ./dist/* dmsesbiz2005@finalproject.crabdance.com:/home/dmsesbiz2005/news_explorer_frontend && ssh dmsesbiz2005@finalproject.crabdance.com 'sudo chown -R www-data:www-data /home/dmsesbiz2005/news_explorer_frontend && sudo chmod -R 755 /home/dmsesbiz2005/news_explorer_frontend'"
+}

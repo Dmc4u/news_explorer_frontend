@@ -12,25 +12,33 @@ function NewsCard({
   onSave,
   onDelete,
   isSaved,
+  onUnauthClick,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const isOwner = article.owner === currentUser?._id;
-  const isDisabled = !isLoggedIn && !isSavedPage;
 
   const tooltipText = isSavedPage
     ? isOwner
       ? "Remove from saved"
       : ""
-    : isDisabled
+    : !isLoggedIn
     ? "Sign in to save articles"
     : "";
 
+  // Toggle logic: save if not saved, delete if saved
   const handleClick = () => {
-    if (isDisabled) return;
+    if (!isLoggedIn && !isSavedPage) {
+      onUnauthClick();
+      return;
+    }
     if (isSavedPage && isOwner) {
       onDelete(article);
     } else if (!isSavedPage && isLoggedIn) {
-      onSave(article);
+      if (isSaved) {
+        onDelete(article);
+      } else {
+        onSave(article);
+      }
     }
   };
 
@@ -59,8 +67,13 @@ function NewsCard({
             isSavedPage ? "news-card__delete" : ""
           } ${isSaved ? "saved-active" : ""}`}
           onClick={handleClick}
-          disabled={isDisabled}
-          aria-label={isSavedPage ? "Remove from saved" : "Save article"}
+          aria-label={
+            isSavedPage
+              ? "Remove from saved"
+              : isSaved
+              ? "Remove from saved"
+              : "Save article"
+          }
         >
           <img className="tooltip-icon" src={iconSrc} alt="action" />
         </button>
