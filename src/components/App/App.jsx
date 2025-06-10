@@ -182,20 +182,12 @@ function App() {
    */
   const handleDeleteArticle = (article) => {
     const token = localStorage.getItem("jwt");
-    // Accept either the full saved object or an article from search
-    const target =
-      savedArticles.find(
-        (a) =>
-          a._id === article._id ||
-          a.url === article.url ||
-          a.link === article.url
-      ) || article;
-    if (!target?._id) return;
+    if (!article?._id) return;
 
-    deleteArticle(token, target._id)
-      .then(() =>
-        setSavedArticles((prev) => prev.filter((a) => a._id !== target._id))
-      )
+    deleteArticle(token, article._id)
+      .then(() => {
+        setSavedArticles((prev) => prev.filter((a) => a._id !== article._id));
+      })
       .catch((err) => console.error("Failed to delete article:", err));
   };
 

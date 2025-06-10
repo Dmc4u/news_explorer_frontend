@@ -17,26 +17,14 @@ function NewsCardList({
 }) {
   const currentUser = useContext(CurrentUserContext);
 
-  // Matching by url for uniqueness
-  const isArticleSaved = (article) => {
-    return savedArticles.some((a) => {
-      const titleMatch = a.title === article.title;
-      const sourceMatch =
+  const isArticleSaved = (article) =>
+    savedArticles.some(
+      (a) =>
+        a.title === article.title &&
         (a.source?.name || a.source) ===
-        (article.source?.name || article.source);
+          (article.source?.name || article.source)
+    );
 
-      console.log("Match check:", {
-        titleMatch,
-        sourceMatch,
-        savedTitle: a.title,
-        searchTitle: article.title,
-      });
-
-      return titleMatch && sourceMatch; // Remove date comparison temporarily
-    });
-  };
-
-  // Create a unique key function
   const createUniqueKey = (article, index) => {
     return `${article.title}-${article.url}-${index}-${
       isSavedPage ? "saved" : "search"
@@ -57,7 +45,7 @@ function NewsCardList({
               onSave={onSave}
               onDelete={onDelete}
               isSaved={isArticleSaved(article)}
-              isOwner={isSavedPage && article.owner === currentUser?._id}
+              savedArticles={savedArticles} // ✅ Add this prop
               onUnauthClick={onUnauthClick}
             />
           ))}

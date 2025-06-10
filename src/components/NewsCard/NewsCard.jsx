@@ -13,6 +13,7 @@ function NewsCard({
   onDelete,
   isSaved,
   onUnauthClick,
+  savedArticles = [],
 }) {
   const currentUser = useContext(CurrentUserContext);
   const isOwner = article.owner === currentUser?._id;
@@ -23,22 +24,23 @@ function NewsCard({
       : ""
     : !isLoggedIn
     ? "Sign in to save articles"
-    : "";
+    : isSaved
+    ? "Already saved"
+    : "Save article";
 
-  // Toggle logic: save if not saved, delete if saved
   const handleClick = () => {
     if (!isLoggedIn && !isSavedPage) {
       onUnauthClick();
       return;
     }
+
     if (isSavedPage && isOwner) {
       onDelete(article);
     } else if (!isSavedPage && isLoggedIn) {
-      if (isSaved) {
-        onDelete(article);
-      } else {
+      if (!isSaved) {
         onSave(article);
       }
+      // If already saved, do nothing
     }
   };
 
@@ -71,7 +73,7 @@ function NewsCard({
             isSavedPage
               ? "Remove from saved"
               : isSaved
-              ? "Remove from saved"
+              ? "Already saved"
               : "Save article"
           }
         >
