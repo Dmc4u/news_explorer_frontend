@@ -2,7 +2,7 @@
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.finalproject.crabdance.com"
+    ? "https://api.newsarticle.crabdance.com"
     : "http://localhost:3002";
 
 // External News API endpoint

@@ -2,7 +2,7 @@
 
 This is the frontend application for **NewsExplorer**, a responsive React web app that allows users to search for and save news articles using the News API.
 
-🔗 [NewsExplorer](https://finalproject.crabdance.com/)
+🔗 [NewsExplorer](https://newsarticle.crabdance.com/)
 🔗 [View the repository](https://github.com/Dmc4u/news_explorer_frontend)
 
 ## 📦 Tech Stack
@@ -166,7 +166,7 @@ Run: npm run deploy on the LM
 - This will:
 1. 🏗️ Build your React app locally (npm run build)
 2. 📤 Copy the built files to your VM server via scp
-3. 🌐 Make your app available at https://finalproject.crabdance.com
+3. 🌐 Make your app available at https://newsarticle.crabdance.com
 
 
 ## Fix the permission for the user to be able to read the files in the assets directory?
@@ -176,5 +176,5 @@ run on VM: chmod 755 /home/dmsesbiz2005/news_explorer_frontend/assets
 If you want to avoid manual chown/chmod in the future, you can modify your deploy script in package.json like this:
 "scripts": {
   "predeploy": "npm run build",
-  "deploy": "npm run build && scp -r ./dist/* dmsesbiz2005@finalproject.crabdance.com:/home/dmsesbiz2005/news_explorer_frontend && ssh dmsesbiz2005@finalproject.crabdance.com 'sudo chown -R www-data:www-data /home/dmsesbiz2005/news_explorer_frontend && sudo chmod -R 755 /home/dmsesbiz2005/news_explorer_frontend'"
+  "deploy": "npm run build && scp -r ./dist/* dmsesbiz2005@newsarticle.crabdance.com:/home/dmsesbiz2005/news_explorer_frontend && ssh dmsesbiz2005@newsarticle.crabdance.com 'sudo chown -R www-data:www-data /home/dmsesbiz2005/news_explorer_frontend && sudo chmod -R 755 /home/dmsesbiz2005/news_explorer_frontend'"
 }
