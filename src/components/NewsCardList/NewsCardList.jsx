@@ -18,8 +18,23 @@ function NewsCardList({
   const currentUser = useContext(CurrentUserContext);
 
   // Matching by url for uniqueness
-  const isArticleSaved = (article) =>
-    savedArticles.some((a) => a.url === article.url || a.link === article.url);
+  const isArticleSaved = (article) => {
+    return savedArticles.some((a) => {
+      const titleMatch = a.title === article.title;
+      const sourceMatch =
+        (a.source?.name || a.source) ===
+        (article.source?.name || article.source);
+
+      console.log("Match check:", {
+        titleMatch,
+        sourceMatch,
+        savedTitle: a.title,
+        searchTitle: article.title,
+      });
+
+      return titleMatch && sourceMatch; // Remove date comparison temporarily
+    });
+  };
 
   // Create a unique key function
   const createUniqueKey = (article, index) => {

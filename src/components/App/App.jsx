@@ -147,14 +147,18 @@ function App() {
         navigate("/saved-news");
       });
 
+  /**
+   * Save an article if not already saved (by url).
+   * If already saved, triggers delete instead (toggle).
+   */
   const handleSaveArticle = (article) => {
     const token = localStorage.getItem("jwt");
     const keyword = searchQuery.trim();
 
-    const existing = savedArticles.find(
-      (a) => a.url === article.url || a.link === article.url
-    );
+    // Deduplication: Find if article is already saved (by title)
+    const existing = savedArticles.find((a) => a.title === article.title);
     if (existing) {
+      // If already saved, delete it (toggle)
       handleDeleteArticle(existing);
       return;
     }
@@ -162,11 +166,10 @@ function App() {
     const cleanedArticle = {
       keyword,
       title: article.title,
-      text: article.description,
-      date: article.publishedAt,
-      source: article.source.name || article.source,
-      link: article.url,
-      image: article.urlToImage,
+      description: article.description,
+      publishedAt: article.publishedAt,
+      source: { name: article.source?.name || article.source },
+      urlToImage: article.urlToImage,
     };
 
     saveArticle(token, cleanedArticle)
@@ -174,8 +177,12 @@ function App() {
       .catch((err) => console.error("Failed to save article:", err));
   };
 
+  /**
+   * Deletes a saved article by its unique ID.
+   */
   const handleDeleteArticle = (article) => {
     const token = localStorage.getItem("jwt");
+    // Accept either the full saved object or an article from search
     const target =
       savedArticles.find(
         (a) =>
@@ -192,8 +199,9 @@ function App() {
       .catch((err) => console.error("Failed to delete article:", err));
   };
 
+  // Handler for unauthorized save icon click
   const handleUnauthSaveClick = () => {
-    setActiveModal("register");
+    setActiveModal("register"); // Open registration modal
   };
 
   return (

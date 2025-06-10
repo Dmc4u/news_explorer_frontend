@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="footer">
       {/* Desktop & Tablet View */}
       <div className="footer__desktop">
-        <p className="footer__text">© 2024 Supersite, Powered by News API</p>
+        <p className="footer__text">© 2025 Supersite, Powered by News API</p>
         <div className="footer__info">
           <Link to="/" className="footer__link">
             <p className="footer__home">Home</p>
@@ -91,7 +91,7 @@ const Footer = () => {
         >
           TripleTen
         </a>
-        <p className="footer__text">© 2024 Supersite, Powered by News API</p>
+        <p className="footer__text">© 2025 Supersite, Powered by News API</p>
       </div>
     </footer>
   );

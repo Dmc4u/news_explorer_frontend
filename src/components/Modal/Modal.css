@@ -95,7 +95,7 @@
 .modal__submit-wrapper {
   width: 100%;
   margin-top: 24px;
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
 }
 
 .modal__submit-wrapper:hover {
@@ -120,7 +120,7 @@
 
 .modal__submit:disabled {
   background: rgba(230, 232, 235, 1);
-  color: rgba(182, 188, 191, 1); 
+  color: rgba(182, 188, 191, 1);
   cursor: not-allowed;
 }
 
@@ -245,6 +245,17 @@
     box-sizing: border-box;
   }
 
+  .modal__close {
+    top: -20px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background: url(../../assets/icons/Close-Icon-white.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
   .modal__keyboard-img {
     display: block;
     margin-top: 24px;
@@ -264,5 +275,4 @@
     font-size: 18px;
     line-height: 24px;
   }
-
 }
