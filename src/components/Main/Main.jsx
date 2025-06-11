@@ -15,6 +15,7 @@ function Main({
   savedArticles,
   onSave,
   onDelete,
+  onUnauthClick,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -48,7 +49,12 @@ function Main({
             savedArticles={savedArticles}
             onSave={onSave}
             onDelete={onDelete}
-            showTitle={showResults && errorMessage !== "Nothing Found" && articles.length > 0}
+            showTitle={
+              showResults &&
+              errorMessage !== "Nothing Found" &&
+              articles.length > 0
+            }
+            onUnauthClick={onUnauthClick}
           />
         ) : showSavedAsDefault && userSavedArticles.length > 0 ? (
           <NewsCardList
@@ -58,6 +64,7 @@ function Main({
             isLoggedIn={isLoggedIn}
             savedArticles={savedArticles}
             onDelete={onDelete}
+            onUnauthClick={onUnauthClick}
           />
         ) : null}
       </section>

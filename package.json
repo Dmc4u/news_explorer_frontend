@@ -3,14 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://dmc4u.github.io/news_explorer_frontend/",
+  "homepage": "https://newsarticle.crabdance.com",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* dmsesbiz2005@newsarticle.crabdance.com:/home/dmsesbiz2005/news_explorer_frontend"
   },
   "dependencies": {
     "react": "^19.0.0",

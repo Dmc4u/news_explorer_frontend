@@ -13,13 +13,18 @@ function NewsCardList({
   onSave,
   onDelete,
   showTitle = false,
+  onUnauthClick,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
   const isArticleSaved = (article) =>
-    savedArticles.some((a) => a.title === article.title);
+    savedArticles.some(
+      (a) =>
+        a.title === article.title &&
+        (a.source?.name || a.source) ===
+          (article.source?.name || article.source)
+    );
 
-  // Create a unique key function
   const createUniqueKey = (article, index) => {
     return `${article.title}-${article.url}-${index}-${
       isSavedPage ? "saved" : "search"
@@ -29,7 +34,7 @@ function NewsCardList({
   return (
     <>
       <section className="news-card-list">
-         {showTitle && <h2 className="news-card-list__title">Search results</h2>}
+        {showTitle && <h2 className="news-card-list__title">Search results</h2>}
         <ul className="news-card-list__grid">
           {articles.map((article, index) => (
             <NewsCard
@@ -40,7 +45,8 @@ function NewsCardList({
               onSave={onSave}
               onDelete={onDelete}
               isSaved={isArticleSaved(article)}
-              isOwner={isSavedPage && article.owner === currentUser?._id}
+              savedArticles={savedArticles} // ✅ Add this prop
+              onUnauthClick={onUnauthClick}
             />
           ))}
         </ul>

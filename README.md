@@ -2,7 +2,7 @@
 
 This is the frontend application for **NewsExplorer**, a responsive React web app that allows users to search for and save news articles using the News API.
 
-🔗 [NewsExplorer](https://dmc4u.github.io/news_explorer_frontend/) 
+🔗 [NewsExplorer](https://newsarticle.crabdance.com/)
 🔗 [View the repository](https://github.com/Dmc4u/news_explorer_frontend)
 
 ## 📦 Tech Stack
@@ -133,7 +133,48 @@ https://github.com/Dmc4u/news_explorer_frontend
 👉 https://dmc4u.github.io/news_explorer_frontend/
 
 
+## After a successful merge
+
+1. Switch to main branch and pull the latest changes:
+bash
+git checkout main
+git pull origin main
+
+## Delete the branch you checked out from. e.g stage-1-frontend-and-api
+ Run: git checkout -d stage-1-frontend-and-api
+
+## To  see all your branches:
+
+git branch -a
+Run: git branch //to see the current branch.
 
 
+2. Install any new dependencies (in case new packages were added):
+bash
+npm install
+
+Run: npm run dev
+
+## Deploy the frontend to the Google Cloud Server.
+# Make a directory on VM 
+run:  mkdir /home/dmsesbiz2005/final-project-frontend
+
+# Update the package.json script to:"deploy": "npm run build && scp -r ./dist/* dmsesbiz2005@34.165.62.57:/home/dmsesbiz2005/news_explorer_frontend
+/"
+
+Run: npm run deploy on the LM 
+- This will:
+1. 🏗️ Build your React app locally (npm run build)
+2. 📤 Copy the built files to your VM server via scp
+3. 🌐 Make your app available at https://newsarticle.crabdance.com
 
 
+## Fix the permission for the user to be able to read the files in the assets directory?
+run on VM: chmod 755 /home/dmsesbiz2005/news_explorer_frontend/assets
+
+# 🧠 Optional: Automate This in npm run deploy
+If you want to avoid manual chown/chmod in the future, you can modify your deploy script in package.json like this:
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "npm run build && scp -r ./dist/* dmsesbiz2005@newsarticle.crabdance.com:/home/dmsesbiz2005/news_explorer_frontend && ssh dmsesbiz2005@newsarticle.crabdance.com 'sudo chown -R www-data:www-data /home/dmsesbiz2005/news_explorer_frontend && sudo chmod -R 755 /home/dmsesbiz2005/news_explorer_frontend'"
+}

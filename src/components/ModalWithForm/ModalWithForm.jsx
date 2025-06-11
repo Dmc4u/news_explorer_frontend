@@ -32,14 +32,6 @@ function ModalWithForm({
         </footer>
       </form>
 
-      {keyboardImgSrc && (
-        <img
-          src={keyboardImgSrc}
-          alt="Mobile keyboard"
-          className="modal__keyboard-img"
-        />
-      )}
-
       <footer className="modal__footer">
         {altText && (
           <button className="modal__alt-button" onClick={onAltClick}>
@@ -47,6 +39,14 @@ function ModalWithForm({
           </button>
         )}
       </footer>
+
+      {keyboardImgSrc && (
+        <img
+          src={keyboardImgSrc}
+          alt="Mobile keyboard"
+          className="modal__keyboard-img"
+        />
+      )}
     </Modal>
   );
 }
