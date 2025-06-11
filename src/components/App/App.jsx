@@ -147,10 +147,6 @@ function App() {
         navigate("/saved-news");
       });
 
-  /**
-   * Save an article if not already saved (by url).
-   * If already saved, triggers delete instead (toggle).
-   */
   const handleSaveArticle = (article) => {
     const token = localStorage.getItem("jwt");
     const keyword = searchQuery.trim();
