@@ -20,13 +20,12 @@ This is the frontend application for **NewsExplorer**, a responsive React web ap
 - 🧩 Modular & reusable components (cards, buttons, modals, loaders)
 - 💾 LocalStorage caching for saved articles and search results
 
----
 
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
 
-```bash
+
 git clone git@github.com:Dmc4u/news_explorer_frontend.git
 cd news_explorer_frontend
 
@@ -137,15 +136,15 @@ https://github.com/Dmc4u/news_explorer_frontend
 
 1. Switch to main branch and pull the latest changes:
 bash
-git checkout main
-git pull origin main
+run: git checkout main
+run: git pull origin main
 
 ## Delete the branch you checked out from. e.g stage-1-frontend-and-api
  Run: git checkout -d stage-1-frontend-and-api
 
 ## To  see all your branches:
 
-git branch -a
+run: git branch -a
 Run: git branch //to see the current branch.
 
 
